@@ -1,11 +1,6 @@
 import { createChatStore, mountChatView, renderChatView } from "./chat.js";
 import { normalizePath } from "./utils.js";
-
-import heroImage from "./public/apolo-hero.png";
-import aboutImage from "./public/apolo-about.png";
-
-const HERO_IMAGE_PATH = heroImage;
-const ABOUT_IMAGE_PATH = aboutImage;
+import { ABOUT_IMAGE_PATH, HERO_IMAGE_PATH } from "./variables.js";
 
 export const ROUTES = {
   "/": { key: "home", label: "Inicio" },
