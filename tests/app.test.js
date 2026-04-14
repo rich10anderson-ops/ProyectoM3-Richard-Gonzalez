@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getRoute, renderShell, renderView } from "../src/app.js";
+import { getRoute, renderShell, renderView } from "../app.js";
 
 describe("app routing", () => {
   it("returns the chat route definition for /chat", () => {
