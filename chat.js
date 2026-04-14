@@ -3,14 +3,12 @@ import {
   buildAnthropicPayload,
   createMessage,
   debounce,
+  isValidTopic,
   loadConversation,
   saveConversation,
   wait,
 } from "./utils.js";
-
-import chatAvatar from "./public/apolo-chat.png";
-
-const CHAT_AVATAR_PATH = chatAvatar;
+import { CHAT_AVATAR_PATH } from "./variables.js";
 
 export function createSystemPrompt({
   nombre,
@@ -104,7 +102,7 @@ export function renderStatusNotice(status, error) {
   }
 
   if (status === "error" && error) {
-    return `<article class="message message-system">Algo salio mal en la senal de Apolo: ${error}</article>`;
+    return `<article class="message message-system">🐱 Algo salio mal en la senal de Apolo: ${error}</article>`;
   }
 
   return "";
@@ -194,7 +192,15 @@ export async function requestCharacterReply(messages, fetchImpl = fetch) {
     body: JSON.stringify(buildAnthropicPayload(messages, CHARACTER_PROMPT)),
   });
 
-  const data = await response.json();
+  let data = null;
+
+  try {
+    data = await response.json();
+  } catch {
+    throw new Error(
+      "El backend no devolvio un JSON valido. Si estas en desarrollo, prueba ejecutar la app con `vercel dev` para que la funcion `/api/functions` responda correctamente.",
+    );
+  }
 
   if (response.status === 429) {
     const error = new Error(data?.error || "Demasiadas solicitudes. Intenta de nuevo en un momento.");
@@ -275,7 +281,12 @@ export function mountChatView({ store, fetchImpl = fetch }) {
     }
 
     const text = input.value.trim();
-    if (!text) {
+    if (!isValidTopic(text)) {
+      store.setStatus(
+        "error",
+        "Escribe un mensaje valido de entre 2 y 50 caracteres para invocar a Apolo.",
+      );
+      refreshMessages();
       return;
     }
 
