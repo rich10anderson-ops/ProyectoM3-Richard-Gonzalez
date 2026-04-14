@@ -7,6 +7,8 @@
   --accent: #c1121f;
   --accent-dark: #8f0b14;
   --accent-soft: rgba(193, 18, 31, 0.14);
+  --accent-glow: rgba(255, 108, 124, 0.28);
+  --gold-soft: rgba(230, 188, 120, 0.1);
   --border: rgba(255, 255, 255, 0.08);
   --shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
   --radius-lg: 28px;
@@ -64,20 +66,20 @@ textarea {
 
 .topbar-inner,
 .view {
-  width: min(var(--max-width), calc(100% - 2rem));
+  width: min(var(--max-width), calc(100% - 1rem));
   margin: 0 auto;
 }
 
 .topbar-inner {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.9rem 0;
 }
 
 .brand {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -95,12 +97,12 @@ textarea {
 
 .nav {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.6rem;
   flex-wrap: wrap;
 }
 
 .nav-link {
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 0.95rem;
   border-radius: 999px;
   color: #f0e5de;
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
@@ -115,7 +117,7 @@ textarea {
 
 .view {
   flex: 1;
-  padding: 2rem 0 3rem;
+  padding: 1rem 0 2rem;
 }
 
 .hero,
@@ -125,11 +127,14 @@ textarea {
   animation: fadeUp 0.45s ease both;
 }
 
-.hero {
+.hero,
+.chat-layout,
+.about-grid,
+.cta-row,
+.composer {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 1.5rem;
-  align-items: stretch;
+  grid-template-columns: 1fr;
+  gap: 1rem;
 }
 
 .hero-copy,
@@ -144,13 +149,19 @@ textarea {
   border-radius: var(--radius-lg);
 }
 
+.hero-copy,
+.chat-sidebar,
+.chat-window,
+.panel,
+.about-card {
+  padding: 1.15rem;
+}
+
 .hero-copy {
-  padding: 3rem;
-  min-height: 72vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  order: 2;
+  min-height: auto;
 }
 
 .eyebrow {
@@ -161,31 +172,31 @@ textarea {
   border-radius: 999px;
   background: var(--accent-soft);
   color: #ff8892;
-  font-size: 0.9rem;
+  font-size: 0.84rem;
   font-weight: 700;
 }
 
 .hero-kicker {
-  margin: 1.5rem 0 0;
+  margin: 1rem 0 0;
   color: #ffb9bf;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
 }
 
 .hero h1,
 .panel h2,
 .chat-sidebar h2,
 .about-card h2 {
-  margin: 1rem 0 0.75rem;
+  margin: 0.9rem 0 0.75rem;
   line-height: 1.05;
   font-family: var(--font-display);
   letter-spacing: 0.02em;
 }
 
 .hero h1 {
-  font-size: clamp(2.1rem, 4.6vw, 4rem);
-  max-width: 9ch;
+  font-size: clamp(2rem, 8vw, 3rem);
+  max-width: 12ch;
   color: #fff7f4;
 }
 
@@ -198,20 +209,12 @@ textarea {
 }
 
 .lead {
-  font-size: 1rem;
+  font-size: 0.98rem;
   max-width: 34rem;
 }
 
-.cta-row,
-.stats,
-.about-grid {
-  display: grid;
-  gap: 1rem;
-}
-
 .cta-row {
-  grid-template-columns: repeat(2, minmax(0, max-content));
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
 }
 
 .button,
@@ -221,29 +224,34 @@ textarea {
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  padding: 0.95rem 1.4rem;
+  padding: 0.95rem 1.35rem;
   font-weight: 700;
-  transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
   overflow: hidden;
 }
 
 .button {
-  background: linear-gradient(180deg, #ff5769 0%, #c1121f 48%, #6b0910 100%);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.28), transparent 36%),
+    linear-gradient(180deg, #ff6f7c 0%, #c1121f 46%, #6b0910 100%);
   color: white;
   box-shadow:
-    0 12px 26px rgba(193, 18, 31, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    0 14px 30px rgba(193, 18, 31, 0.38),
+    0 0 18px rgba(255, 108, 124, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .ghost-button {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.16), transparent 38%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02));
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 14px 28px rgba(0, 0, 0, 0.28),
+    0 0 16px rgba(193, 18, 31, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .button::before,
@@ -261,9 +269,9 @@ textarea {
   content: "";
   position: absolute;
   inset: -40% auto -40% -30%;
-  width: 38%;
+  width: 40%;
   transform: rotate(18deg);
-  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.24), transparent);
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.28), transparent);
   opacity: 0;
   transition: opacity 0.25s ease, transform 0.3s ease;
   pointer-events: none;
@@ -274,18 +282,12 @@ textarea {
   transform: translateY(-2px);
 }
 
-.button:hover {
-  box-shadow:
-    0 18px 34px rgba(193, 18, 31, 0.45),
-    0 0 18px rgba(193, 18, 31, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
-}
-
+.button:hover,
 .ghost-button:hover {
   box-shadow:
-    0 16px 32px rgba(0, 0, 0, 0.34),
-    0 0 16px rgba(193, 18, 31, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 18px 34px rgba(193, 18, 31, 0.26),
+    0 0 20px rgba(255, 108, 124, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .button:hover::after,
@@ -294,41 +296,27 @@ textarea {
   transform: rotate(18deg) translateX(12px);
 }
 
+.button[disabled],
+.ghost-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
 .hero-card {
-  padding: 1.25rem;
+  padding: 0;
+  overflow: hidden;
   background:
     radial-gradient(circle at top, rgba(193, 18, 31, 0.22), transparent 35%),
     linear-gradient(180deg, rgba(18, 18, 18, 0.98), rgba(8, 8, 8, 0.98));
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-  order: 1;
-}
-
-.hero-card-poster {
-  padding: 0;
-  overflow: hidden;
 }
 
 .hero-portrait-frame {
   position: relative;
   overflow: hidden;
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    radial-gradient(circle at top, rgba(193, 18, 31, 0.24), transparent 30%),
-    #111;
-  min-height: 470px;
-}
-
-.hero-portrait-frame-poster {
-  min-height: 78vh;
-  height: 100%;
-  border: none;
   border-radius: var(--radius-lg);
   background: #090909;
+  min-height: 420px;
 }
 
 .hero-portrait-frame::after {
@@ -336,24 +324,27 @@ textarea {
   position: absolute;
   inset: auto 0 0 0;
   height: 34%;
-  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.78));
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.82));
   pointer-events: none;
 }
 
-.hero-portrait {
+.hero-portrait,
+.hero-portrait-poster {
   width: 100%;
   height: 100%;
-  min-height: 470px;
-  object-fit: cover;
-  object-position: center top;
+  min-height: 420px;
   display: block;
 }
 
+.hero-portrait {
+  object-fit: cover;
+  object-position: center top;
+}
+
 .hero-portrait-poster {
-  min-height: 78vh;
   object-fit: contain;
   object-position: center center;
-  transform: scale(0.9);
+  transform: scale(0.92);
   transform-origin: center center;
   filter: saturate(1.05) contrast(1.02);
 }
@@ -362,13 +353,13 @@ textarea {
   position: absolute;
   inset: auto 0 0 0;
   z-index: 1;
-  padding: 2rem;
+  padding: 1.25rem;
   background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.92) 42%);
 }
 
 .hero-poster-overlay h2 {
   margin: 0.8rem 0 0.5rem;
-  font-size: clamp(1.7rem, 2.5vw, 2.5rem);
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
   color: white;
 }
 
@@ -377,21 +368,11 @@ textarea {
   margin: 0;
   color: #f1dedd;
   line-height: 1.6;
-  font-size: 0.98rem;
-}
-
-.hero-card-inner {
-  width: 100%;
-  padding: 1.5rem;
-  border-radius: var(--radius-md);
-  background: rgba(7, 7, 7, 0.78);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.96rem;
 }
 
 .panel {
-  margin-top: 1.5rem;
-  padding: 1.75rem;
+  margin-top: 1rem;
 }
 
 .feature-list,
@@ -401,21 +382,10 @@ textarea {
   color: var(--muted);
 }
 
-.chat-layout {
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
-  gap: 1.25rem;
-}
-
-.chat-sidebar,
-.chat-window {
-  padding: 1.5rem;
-}
-
 .chat-window {
   display: flex;
   flex-direction: column;
-  min-height: 70vh;
+  min-height: 68vh;
 }
 
 .message-list {
@@ -424,11 +394,11 @@ textarea {
   flex-direction: column;
   gap: 0.85rem;
   overflow-y: auto;
-  padding-right: 0.25rem;
+  padding-right: 0.1rem;
 }
 
 .message {
-  max-width: min(80%, 42rem);
+  max-width: 100%;
   padding: 1rem 1.1rem;
   border-radius: 20px;
   line-height: 1.6;
@@ -450,13 +420,18 @@ textarea {
 }
 
 .message-user {
-  background: var(--accent);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 35%),
+    linear-gradient(180deg, #d31a28 0%, #a50f18 100%);
   color: white;
   border-bottom-right-radius: 6px;
+  box-shadow: 0 10px 24px rgba(193, 18, 31, 0.22);
 }
 
 .message-assistant {
-  background: #161616;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    #161616;
   border: 1px solid var(--border);
   border-bottom-left-radius: 6px;
 }
@@ -483,16 +458,15 @@ textarea {
 
 .message-system {
   align-self: center;
-  background: rgba(193, 18, 31, 0.12);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 38%),
+    rgba(193, 18, 31, 0.12);
   color: #ffd0d4;
   text-align: center;
 }
 
 .composer {
   margin-top: 1rem;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.75rem;
 }
 
 .composer textarea {
@@ -510,8 +484,8 @@ textarea {
 }
 
 .composer-actions {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 0.75rem;
 }
 
@@ -519,12 +493,24 @@ textarea {
   color: var(--muted);
 }
 
-.about-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.about-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(193, 18, 31, 0.09), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+    linear-gradient(135deg, rgba(24, 24, 24, 0.97), rgba(12, 12, 12, 0.96));
 }
 
-.about-card {
-  padding: 1.5rem;
+.about-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 125, 138, 0.08), transparent 22%),
+    radial-gradient(circle at 82% 76%, rgba(230, 188, 120, 0.08), transparent 20%);
+  pointer-events: none;
 }
 
 .about-card-photo {
@@ -622,45 +608,22 @@ textarea {
   }
 }
 
-@media (max-width: 920px) {
-  .hero,
-  .chat-layout,
-  .about-grid {
-    grid-template-columns: 1fr;
+@media (min-width: 680px) {
+  .topbar-inner,
+  .view {
+    width: min(var(--max-width), calc(100% - 2rem));
   }
 
-  .hero-copy,
-  .hero-card {
-    order: initial;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 680px) {
   .topbar-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .cta-row,
-  .composer {
-    grid-template-columns: 1fr;
-  }
-
-  .composer-actions {
     flex-direction: row;
-  }
-
-  .message {
-    max-width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
   }
 
   .view {
-    width: min(var(--max-width), calc(100% - 1rem));
-    padding-top: 1.25rem;
+    padding: 1.5rem 0 2.5rem;
   }
 
   .hero-copy,
@@ -668,24 +631,83 @@ textarea {
   .chat-window,
   .panel,
   .about-card {
-    padding: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .cta-row {
+    grid-template-columns: repeat(2, minmax(0, max-content));
+  }
+
+  .composer {
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+  }
+
+  .composer-actions {
+    grid-template-columns: 1fr;
   }
 
   .hero-portrait-frame,
-  .hero-portrait {
-    min-height: 360px;
-  }
-
-  .hero-portrait-frame-poster,
+  .hero-portrait,
   .hero-portrait-poster {
-    min-height: 420px;
+    min-height: 520px;
   }
 
-  .hero-poster-overlay {
-    padding: 1.25rem;
+  .message {
+    max-width: min(80%, 42rem);
+  }
+
+  .about-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 920px) {
+  .view {
+    padding: 2rem 0 3rem;
+  }
+
+  .hero {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  .hero-copy {
+    padding: 3rem;
+    min-height: 72vh;
+    order: 2;
+  }
+
+  .hero-card {
+    order: 1;
   }
 
   .hero h1 {
-    max-width: 11ch;
+    font-size: clamp(2.5rem, 4.6vw, 4rem);
+    max-width: 9ch;
+  }
+
+  .hero-portrait-frame,
+  .hero-portrait,
+  .hero-portrait-poster {
+    min-height: 78vh;
+  }
+
+  .hero-poster-overlay {
+    padding: 2rem;
+  }
+
+  .chat-layout {
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .chat-window {
+    min-height: 70vh;
+  }
+
+  .about-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
