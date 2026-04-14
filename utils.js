@@ -78,13 +78,30 @@ export function wait(milliseconds) {
   });
 }
 
+export function formatFact(apiResponse) {
+  if (!apiResponse || !apiResponse.fact) {
+    return "No se encontro informacion";
+  }
+
+  return apiResponse.fact.trim();
+}
+
+export function isValidTopic(topic) {
+  if (!topic) {
+    return false;
+  }
+
+  const trimmed = topic.trim();
+  return trimmed.length >= 2 && trimmed.length <= 50;
+}
+
 export function buildAnthropicPayload(
   messages,
   systemPrompt,
   {
-    model = "claude-3-5-sonnet-latest",
+    model = "gemini-2.5-flash",
     temperature = 0.2,
-    maxTokens = 120,
+    maxTokens = 320,
   } = {},
 ) {
   return {
