@@ -23,7 +23,7 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api/|@vite/|__vite_ping|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
