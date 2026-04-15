@@ -101,7 +101,7 @@ export function buildAnthropicPayload(
   {
     model = "gemini-2.5-flash",
     temperature = 0.2,
-    maxTokens = 320,
+    maxTokens = 520,
   } = {},
 ) {
   return {
