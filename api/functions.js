@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 
 const DEFAULT_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 const DEFAULT_TEMPERATURE = Number(process.env.GEMINI_TEMPERATURE || 0.2);
-const DEFAULT_MAX_TOKENS = Number(process.env.GEMINI_MAX_TOKENS || 320);
+const DEFAULT_MAX_TOKENS = Number(process.env.GEMINI_MAX_TOKENS || 520);
 
 function toGeminiContents(messages = []) {
   return messages
