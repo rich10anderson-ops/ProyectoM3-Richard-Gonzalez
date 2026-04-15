@@ -2,6 +2,58 @@
 
 Single Page Application responsive para chatear con un personaje ficticio usando Google Gemini API a traves de una Vercel Serverless Function.
 
+## Vista general
+
+| Indicador | Estado |
+|---|---|
+| Routing SPA | History API con `pushState` y `popstate` |
+| UI responsive | Mobile-first con 3 breakpoints |
+| Chat IA | Gemini 2.5 Flash |
+| Persistencia | `sessionStorage` |
+| Estados visuales | loading, retry, error, truncado |
+| Tests | `11/11` en verde |
+
+## Flujo de la app
+
+```text
+Usuario
+  |
+  v
+Lobby SPA -> Router -> Vista Home / Chat / About
+                    |
+                    v
+               Chat con Apolo
+                    |
+                    v
+          requestCharacterReply()
+                    |
+                    v
+             /api/functions
+                    |
+                    v
+           Google Gemini API
+                    |
+                    v
+      reply + stopReason + truncated
+                    |
+                    v
+         Render del mensaje en UI
+```
+
+## Flujo del chat
+
+```text
+Input del usuario
+  -> validacion de longitud
+  -> debounce
+  -> bloqueo por isLoading
+  -> guardado en historial
+  -> request al backend
+  -> parseo de respuesta
+  -> render de Apolo
+  -> scroll automatico
+```
+
 ## Estructura
 
 ```text
@@ -27,15 +79,6 @@ project-root/
 `-- README.md
 ```
 
-## Requisitos cubiertos
-
-- Routing SPA con History API.
-- Tres vistas principales: Home, Chat y About.
-- Integracion de Google Gemini API desde `api/functions.js`.
-- Historial de conversacion durante la sesion con `sessionStorage`.
-- Minimo 4 tests unitarios con Vitest.
-- Control explicito de temperatura y longitud maxima de respuesta.
-
 ## Variables de entorno
 
 Usa `.env.example` como referencia:
@@ -44,7 +87,7 @@ Usa `.env.example` como referencia:
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-2.5-flash
 GEMINI_TEMPERATURE=0.2
-GEMINI_MAX_TOKENS=320  (Preferible por la calidad de personaje)
+GEMINI_MAX_TOKENS=520
 ```
 
 ## Scripts
@@ -53,16 +96,11 @@ GEMINI_MAX_TOKENS=320  (Preferible por la calidad de personaje)
 npm install
 npm test
 npm run dev
+npx vercel dev
 ```
 
-## Flujo general
+## Nota de uso
 
-1. `app.js` controla las rutas y renderiza cada vista.
-2. `chat.js` administra el estado del chat y la llamada al backend.
-3. `utils.js` concentra helpers reutilizables y persistencia.
-4. `api/functions.js` habla con Gemini usando la API key del servidor.
-5. El backend devuelve `reply`, `truncated` y `stopReason` para manejar respuestas recortadas.
-
-## Nota de despliegue
-
-Para desplegar en Vercel, asegurate de definir `GEMINI_API_KEY`, `GEMINI_MODEL`, `GEMINI_TEMPERATURE` y `GEMINI_MAX_TOKENS` en las Environment Variables del proyecto.
+- `npm run dev` sirve bien la SPA.
+- `npx vercel dev` es la forma mas confiable de probar la SPA junto con `api/functions`.
+- Si Apolo sigue saliendo recortado, sube `GEMINI_MAX_TOKENS` en tu `.env` real y reinicia el servidor.
