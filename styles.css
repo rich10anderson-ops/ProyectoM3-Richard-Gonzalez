@@ -150,6 +150,65 @@ textarea {
 }
 
 .hero-copy,
+.hero-card {
+  position: relative;
+}
+
+.hero-copy::before,
+.hero-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 96, 112, 0.9),
+      rgba(193, 18, 31, 0.95),
+      rgba(255, 143, 158, 0.85)
+    );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.8;
+  pointer-events: none;
+  transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+.hero-copy::after,
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    0 0 0 1px rgba(255, 104, 121, 0.16),
+    0 0 28px rgba(193, 18, 31, 0.16),
+    0 0 56px rgba(193, 18, 31, 0.12);
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-copy:hover::before,
+.hero-card:hover::before {
+  opacity: 1;
+  filter: saturate(1.15) brightness(1.08);
+}
+
+.hero-copy:hover::after,
+.hero-card:hover::after {
+  opacity: 1;
+  box-shadow:
+    0 0 0 1px rgba(255, 118, 134, 0.24),
+    0 0 36px rgba(193, 18, 31, 0.22),
+    0 0 72px rgba(193, 18, 31, 0.18);
+}
+
+.hero-copy,
 .chat-sidebar,
 .chat-window,
 .panel,
@@ -162,6 +221,7 @@ textarea {
   flex-direction: column;
   justify-content: center;
   min-height: auto;
+  isolation: isolate;
 }
 
 .eyebrow {
@@ -309,6 +369,7 @@ textarea {
   background:
     radial-gradient(circle at top, rgba(193, 18, 31, 0.22), transparent 35%),
     linear-gradient(180deg, rgba(18, 18, 18, 0.98), rgba(8, 8, 8, 0.98));
+  isolation: isolate;
 }
 
 .hero-portrait-frame {
