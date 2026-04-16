@@ -154,3 +154,7 @@ npx vercel dev
 - `npm run dev` sirve bien la SPA.
 - `npx vercel dev` es la forma mas confiable de probar la SPA junto con `api/functions`.
 - Si Apolo sigue saliendo recortado, sube `GEMINI_MAX_TOKENS` en tu `.env` real y reinicia el servidor.
+
+## Vinculo
+´Vercel:
+https://fsm-3-l4-henry.vercel.app/
